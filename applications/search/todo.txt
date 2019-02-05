@@ -1,0 +1,8 @@
+filter dynamic urls, rly long/messy urls
+analytics in extract next links?
+1. Keep track of the subdomains that it visited, and count how many different URLs it has processed from each of those subdomains.
+2. Find the page with the most out links (of all pages given to your crawler). Out Links are the number of links that are present on a particular webpage.
+only write to file when frontier is empty, have a dictionary outside of the function
+double check that its absolute form, if not then make it absolute
+check http code first before scraping - < 400?
+extract next links needs to get more links -> probably through the relative links

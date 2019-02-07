@@ -88,7 +88,7 @@ def extract_next_links(rawDataObj):
                     outputLinks.append(link.attrib['href'].encode("utf-8"))
                 #    print(outputLinks[-1])
                 #    print("came absolute)")
-            except(UnicodeDecodeError):
+            except(UnicodeEncodeError):
                 pass
     d['n_urls'] += 1
     url = urlparse(rawDataObj.url)

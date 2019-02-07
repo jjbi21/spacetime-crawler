@@ -20,3 +20,6 @@ filtering traps:
 - use frontier to check for dynamic urls (downloaded urls)
     -> downloaded urls come from previously marked valid ones
     -> make history at time of downloading url
+
+analytics:
+-

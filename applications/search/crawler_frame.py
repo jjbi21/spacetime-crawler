@@ -50,10 +50,7 @@ class CrawlerFrame(IApplication):
 
     def download_links(self, unprocessed_links):
         for link in unprocessed_links:
-            try:
-                print "Got a link to download:", link.full_url
-            except:
-                pass
+            print "Got a link to download:", link.full_url
             downloaded = link.download()
             links = extract_next_links(downloaded)
             for l in links:

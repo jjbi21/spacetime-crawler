@@ -6,3 +6,17 @@ only write to file when frontier is empty, have a dictionary outside of the func
 double check that its absolute form, if not then make it absolute
 check http code first before scraping - < 400?
 extract next links needs to get more links -> probably through the relative links
+
+questions to ask:
+1. How should we output to a file? My partner had an issue when trying to output
+in the main crawler function: restricted access. Also, where should we output this
+information?
+A:
+2. Why did the .csv file get pass through is_valid when running the crawler? This
+raised an error, specifically being a infinitely long file.
+A: trap
+
+filtering traps:
+- use frontier to check for dynamic urls (downloaded urls)
+    -> downloaded urls come from previously marked valid ones
+    -> make history at time of downloading url

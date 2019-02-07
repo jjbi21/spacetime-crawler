@@ -6,6 +6,7 @@ from lxml import html,etree
 import re, os
 from time import time
 from uuid import uuid4
+from urlparse import urljoin
 
 from urlparse import urlparse, parse_qs
 from uuid import uuid4
@@ -49,7 +50,10 @@ class CrawlerFrame(IApplication):
 
     def download_links(self, unprocessed_links):
         for link in unprocessed_links:
-            print "Got a link to download:", link.full_url
+            try:
+                print "Got a link to download:", link.full_url
+            except:
+                pass
             downloaded = link.download()
             links = extract_next_links(downloaded)
             for l in links:
@@ -83,7 +87,15 @@ def extract_next_links(rawDataObj):
         links = []
     for link in links:
         if 'href' in link.attrib:
-            outputLinks.append(link.attrib['href'])
+            #print("found link: ", type(link.attrib['href']))
+            if not re.match("^(http|https)", link.attrib['href']):
+                outputLinks.append(urljoin(rawDataObj.url, link.attrib['href']))
+            #    print(outputLinks[-1])
+            #    print("created absolute")
+            else:
+                outputLinks.append(link.attrib['href'])
+            #    print(outputLinks[-1])
+            #    print("came absolute)")
     d['n_urls'] += 1
     url = urlparse(rawDataObj.url)
     sub = url.hostname.rpartition('.')[0].rpartition('.')[0].rpartition('.')[0]
@@ -95,7 +107,7 @@ def extract_next_links(rawDataObj):
     if l > d['most_out_links'].values()[0]:
         d['most_out_links'].popitem()
         d['most_out_links'][rawDataObj.url] = l
-    print d
+    #print d
     return outputLinks
 
 def is_valid(url):

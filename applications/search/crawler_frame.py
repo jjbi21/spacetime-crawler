@@ -79,14 +79,17 @@ def extract_next_links(rawDataObj):
     for link in links:
         if 'href' in link.attrib:
             #print("found link: ", type(link.attrib['href']))
-            if not re.match("^(http|https)", link.attrib['href']):
-                outputLinks.append(urljoin(rawDataObj.url, link.attrib['href']))
-            #    print(outputLinks[-1])
-            #    print("created absolute")
-            else:
-                outputLinks.append(link.attrib['href'])
-            #    print(outputLinks[-1])
-            #    print("came absolute)")
+            try:
+                if not re.match("^(http|https)", link.attrib['href']):
+                    outputLinks.append(urljoin(rawDataObj.url, link.attrib['href']).encode("utf-8"))
+                #    print(outputLinks[-1])
+                #    print("created absolute")
+                else:
+                    outputLinks.append(link.attrib['href'].encode("utf-8"))
+                #    print(outputLinks[-1])
+                #    print("came absolute)")
+            except(UnicodeDecodeError):
+                pass
     d['n_urls'] += 1
     url = urlparse(rawDataObj.url)
     sub = url.hostname.rpartition('.')[0].rpartition('.')[0].rpartition('.')[0]

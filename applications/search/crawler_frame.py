@@ -41,12 +41,6 @@ class CrawlerFrame(IApplication):
         unprocessed_links = self.frame.get_new(OneJjbiFlavioqUnProcessedLink)
         if unprocessed_links:
             self.download_links(unprocessed_links)
-        else:
-            fout = "analytics.txt"
-            fo = open(fout, "w")
-            for k, v in d.items():
-                fo.write(str(k) + ' >>> ' + str(v) + '\n\n')
-            fo.close()
 
     def download_links(self, unprocessed_links):
         for link in unprocessed_links:
@@ -104,8 +98,17 @@ def extract_next_links(rawDataObj):
     if l > d['most_out_links'].values()[0]:
         d['most_out_links'].popitem()
         d['most_out_links'][rawDataObj.url] = l
-    #print d
+
+    if d['n_urls'] == 30000:
+        fout = "analytics.txt"
+        fo = open(fout, "w")
+        for k, v in d.items():
+            fo.write(str(k) + ' >>> ' + str(v) + '\n\n')
+        fo.close()
+    
+    print d
     return outputLinks
+
 
 def is_valid(url):
     '''

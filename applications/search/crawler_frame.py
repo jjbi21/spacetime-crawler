@@ -99,7 +99,7 @@ def extract_next_links(rawDataObj):
         d['most_out_links'].popitem()
         d['most_out_links'][rawDataObj.url] = l
 
-    if d['n_urls'] == 30000:
+    if d['n_urls'] == 3000:
         fout = "analytics.txt"
         fo = open(fout, "w")
         for k, v in d.items():
